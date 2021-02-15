@@ -14,18 +14,18 @@ import java.util.Map;
 
 @Service
 public class KafkaService {
-//    private static final String TOPIC = "user-svc";
-//
-//    @Autowired
-//    private KafkaTemplate<String, UserDTO> kafkaTemplate;
-//
-//    public void sendMessage(UserDTO dto) {
-//
-//        this.kafkaTemplate.send(TOPIC, dto);
-//    }
-//
-//    @KafkaListener(topics = "community-svc", groupId = "foo")
-//    public void consume(ConsumerRecord<String,Object> cr) throws IOException {
-//
-//    }
+    private static final String TOPIC = "user-svc";
+
+    @Autowired
+    private KafkaTemplate<String, UserDTO> kafkaTemplate;
+
+    public void sendMessage(UserDTO dto) {
+
+        this.kafkaTemplate.send(TOPIC, dto);
+    }
+
+    @KafkaListener(topics = "community-svc", groupId = "foo")
+    public void consume(ConsumerRecord<String,Object> cr) throws IOException {
+
+    }
 }

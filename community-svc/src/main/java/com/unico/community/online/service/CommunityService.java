@@ -1,12 +1,15 @@
 package com.unico.community.online.service;
 
 
+import com.netflix.discovery.converters.Auto;
 import com.unico.community.online.dto.CommunityDTO;
 import com.unico.community.online.entity.CommunityEntity;
 import com.unico.community.online.kafka.KafkaService;
 import com.unico.community.online.repository.CommunityMapper;
 import com.unico.community.online.repository.CommunityRepository;
 import lombok.AllArgsConstructor;
+import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.producer.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;

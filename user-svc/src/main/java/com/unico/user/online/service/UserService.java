@@ -1,18 +1,20 @@
 package com.unico.user.online.service;
 
-import com.unico.user.online.dto.UserDTO;
-import com.unico.user.online.entity.UserEntity;
-import com.unico.user.online.kafka.KafkaService;
-import com.unico.user.online.kafka.producer.KafkaProducer;
-import com.unico.user.online.repository.UserMapper;
-import com.unico.user.online.repository.UserRepository;
-import lombok.AllArgsConstructor;
+import java.time.LocalDateTime;
+import java.util.List;
+
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
-import java.time.LocalDateTime;
-import java.util.List;
+import com.unico.user.online.dto.UserDTO;
+import com.unico.user.online.entity.UserEntity;
+import com.unico.user.online.kafka.KafkaService;
+import com.unico.user.online.repository.UserMapper;
+import com.unico.user.online.repository.UserRepository;
+
+import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @Transactional
@@ -20,7 +22,7 @@ import java.util.List;
 public class UserService {
 
 	@Autowired
-	KafkaProducer kafkaProducer;
+	KafkaService kafkaService;
 	UserRepository repository;
 	UserMapper mapper;
 
@@ -61,10 +63,7 @@ public class UserService {
 			entity.updateUseYn(dto.isUseYn());
 
 			result = mapper.toDTO(entity);
-			
-			//kafka 변경 전송
-			kafkaProducer.sendMessage("awef");
-			//kafkaService.sendMessage(result);
+			kafkaService.sendMessage(result);
 		}
 
 		return result;

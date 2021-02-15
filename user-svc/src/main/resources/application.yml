@@ -19,7 +19,7 @@ spring:
           defaultZone: http://localhost:8761/eureka/ #Eueka 서버 주소
   kafka:
     consumer:
-      group-id: foo
+      group-id: user-svc
       bootstrap-servers: 13.125.208.139:9092
       auto-offset-reset: earliest
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
