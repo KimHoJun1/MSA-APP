@@ -1,0 +1,62 @@
+
+########################
+#
+# UNICO PROJECT USERS MICRO SERVICE
+#
+########################
+
+spring:
+  application:
+    name: user-svc
+  profiles:
+    active: local
+  eueka:
+    instance:
+      preferIpAddress: true #Eureka 서비스와의 통신을 IP 주소로 하는걸 우선으로 한다.
+      client:
+        registerWithEureka: true #Eureka 서버에 등록
+        serviceUrl:
+          defaultZone: http://localhost:8761/eureka/ #Eueka 서버 주소
+  kafka:
+    consumer:
+      group-id: foo
+      bootstrap-servers: 13.125.208.139:9092
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: 13.125.208.139:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+--- #local env
+spring:
+  profiles: local
+  jpa:
+    database: mysql
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
+    url: jdbc:mariadb://127.0.0.1:3306/user_msa
+    name: hosun
+    password: hosun_01
+    
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+server:
+  port: 8083
+  servlet:
+    context-path: /
+--- #dev env
+spring:
+  profiles: dev
+
+--- #prod env
+spring:
+  profiles: prod
+
+server:
+  port: 8083

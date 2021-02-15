@@ -1,0 +1,40 @@
+
+########################
+#
+# UNICO PROJECT API GATEWAY
+#
+########################
+
+spring:
+  profiles:
+    active: local
+  application:
+    name: apigateway
+server:
+  servlet:
+    context-path: /api-gateway
+
+
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+
+---   #local
+spring:
+  profiles: local
+server:
+  port: 8080
+zuul:
+  routes:
+    user-service:
+      path: /user-svc/**
+      url: http://localhost:8083/
+      serviceId: user-svc
+    community-service:
+      path: /community-svc/**
+      url: http://localhost:8084/
+      serviceId: community-svc
+    
