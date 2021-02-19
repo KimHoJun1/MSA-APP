@@ -46,6 +46,4 @@
 - [종훈][eoohosun]
 
 
-
-
-[eoohosun]: URL "[Optional Title here](https://github.com/EooHoSun)"
+[eoohosun]: https://github.com/EooHoSun
