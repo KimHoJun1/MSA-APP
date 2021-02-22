@@ -2,10 +2,14 @@ package com.unico.user.online.service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 import javax.transaction.Transactional;
 
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
+import org.springframework.kafka.support.serializer.JsonSerializer;
 import org.springframework.stereotype.Service;
 
 import com.unico.user.online.dto.UserDTO;
@@ -63,7 +67,9 @@ public class UserService {
 			entity.updateUseYn(dto.isUseYn());
 
 			result = mapper.toDTO(entity);
-			//kafkaService.sendMessage(result);
+
+			kafkaService.sendMessage(new JSONObject(result));
+
 		}
 
 		return result;

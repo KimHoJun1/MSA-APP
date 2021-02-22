@@ -36,6 +36,7 @@ dependencies {
 	compile group: 'org.json', name: 'json', version: '20201115'
 	compile 'org.springframework.kafka:spring-kafka'
 
+
 	compileOnly "org.projectlombok:lombok:${lombokVersion}","org.mapstruct:mapstruct:${mapstructVersion}"
 	annotationProcessor "org.projectlombok:lombok:${lombokVersion}","org.mapstruct:mapstruct-processor:${mapstructVersion}"
 
