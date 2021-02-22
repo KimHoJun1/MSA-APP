@@ -1,31 +1,29 @@
 package com.unico.user.online.kafka;
 
-import com.unico.user.online.dto.UserDTO;
-import lombok.AllArgsConstructor;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.annotation.EnableKafka;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Map;
 
 @Service
 public class KafkaService {
     private static final String TOPIC = "user-svc";
+    private final KafkaTemplate<String, String> kafkaTemplate;
 
     @Autowired
-    private KafkaTemplate<String, UserDTO> kafkaTemplate;
-
-    public void sendMessage(UserDTO dto) {
-
-        this.kafkaTemplate.send(TOPIC, dto);
+    public KafkaService(KafkaTemplate kafkaTemplate) {
+        this.kafkaTemplate = kafkaTemplate;
     }
 
-    @KafkaListener(topics = "community-svc", groupId = "foo")
-    public void consume(ConsumerRecord<String,Object> cr) throws IOException {
+    public void sendMessage(String message) {
+        System.out.println(String.format("Produce message : %s", message));
+        this.kafkaTemplate.send(TOPIC, message);
+    }
 
+    @KafkaListener(topics = "user-svc", groupId = "user-svc")
+    public void consume(String message) throws IOException {
+        System.out.println(String.format("Consumed message : %s", message));
     }
 }

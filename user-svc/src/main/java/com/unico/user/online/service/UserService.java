@@ -63,7 +63,7 @@ public class UserService {
 			entity.updateUseYn(dto.isUseYn());
 
 			result = mapper.toDTO(entity);
-			kafkaService.sendMessage(result);
+			//kafkaService.sendMessage(result);
 		}
 
 		return result;

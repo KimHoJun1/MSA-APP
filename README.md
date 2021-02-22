@@ -4,6 +4,19 @@
 
 
 
+## 0.설정법 (2021.02.22)
+> 1. git clone https://github.com/EooHoSun/MSA-APP
+> 2. [kafka download ( window )][kafka]
+> 3. kafka-server-start.bat 설정 변경
+> 3-1. ${kafka}\bin\windows\kafka-server-start.bat => 편집
+> ![ex_screenshot](./kafka%20설정변경.png)
+> 4. zookeeper 실행 ${kafka}\bin\windows\zookeeper-server-start.bat ../../config/zookeeper.properties
+> 5. kafka 실행 ${kafka}\bin\windows\kafka-server-start.bat ../../config/server.properties
+> 6. apigateway, eureka, msa server 기동
+
+[kafka]: https://downloads.apache.org/kafka/2.7.0/kafka_2.12-2.7.0.tgz
+
+
 ## 1. 사용기술
 > 1. 언어 : Java
 > 2. 프레임워크 : Spring Boot
