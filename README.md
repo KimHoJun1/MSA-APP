@@ -53,6 +53,9 @@
 >> 3. jpa 기본template 완성 -> Query DSL 적용중
 
 
+> 2021-02-23
+>> 1. Community-svc Query DSL 예제 추가(update) -> kafka consumer 연계
+
 ***
 ## 5. 참여자
 - [호선][eoohosun]
