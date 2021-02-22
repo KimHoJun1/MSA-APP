@@ -42,8 +42,9 @@
 - [수현][eoohosun]
 - [태용][eoohosun]
 - [호준][eoohosun]
-- [여진][eoohosun]
+- [여진][yeojin]
 - [종훈][eoohosun]
 
 
 [eoohosun]: https://github.com/EooHoSun
+[yeojin]: https://github.com/YeojinJeon
