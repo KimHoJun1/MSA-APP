@@ -9,7 +9,7 @@
 > 2. [kafka download ( window )][kafka]
 > 3. kafka-server-start.bat 설정 변경
 > 3-1. ${kafka}\bin\windows\kafka-server-start.bat => 편집
-> ![ex_screenshot](./kafka%20설정변경.png)
+>> ![ex_screenshot](./kafka%20설정변경.png)
 > 4. zookeeper 실행 ${kafka}\bin\windows\zookeeper-server-start.bat ../../config/zookeeper.properties
 > 5. kafka 실행 ${kafka}\bin\windows\kafka-server-start.bat ../../config/server.properties
 > 6. apigateway, eureka, msa server 기동
