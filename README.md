@@ -4,7 +4,7 @@
 
 
 
-## 0.설정법 (2021.02.22)
+## 설정법 (2021.02.22)
 > 1. git clone https://github.com/EooHoSun/MSA-APP
 > 2. [kafka download ( window )][kafka]
 > 3. kafka-server-start.bat 설정 변경
