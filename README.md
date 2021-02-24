@@ -61,7 +61,7 @@
 - [호선][eoohosun]
 - [수현][eoohosun]
 - [태용][eoohosun]
-- [호준][eoohosun]
+- [호준][KimHoJun1]
 - [여진][yeojin]
 - [종훈][eoohosun]
 
