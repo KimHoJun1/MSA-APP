@@ -4,6 +4,7 @@ package com.unico.community.online.postCatg.entity;
 import com.unico.community.online.post.dto.PostDTO;
 import com.unico.community.online.post.entity.PostEntity;
 import com.unico.community.online.post.entity.PostVO;
+import com.unico.community.online.postCatg.dto.PostCatgDTO;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -16,6 +17,7 @@ import java.util.List;
 
 @NoArgsConstructor( access = AccessLevel.PROTECTED )
 @AllArgsConstructor
+@Builder
 @Entity
 @Getter
 @Table(name = "TB_POST_CATG_M")
@@ -34,7 +36,7 @@ public class PostCatgEntity {
 
     //지연로딩 ( N + 1 방지 )
     @OneToMany(mappedBy = "postCatgEntity", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PostEntity> postList = new ArrayList<>();
+    private List<PostEntity> postList;
 
     public void addPostList(PostDTO dto){
 
@@ -51,7 +53,20 @@ public class PostCatgEntity {
                 .build();
 
         this.postList.add(entity);
+    }
 
+    public void update(PostCatgDTO dto){
+        if( !dto.getPostCatgNm().equals("") && !this.postCatgNm.equals(dto.getPostCatgNm()) ){
+            this.postCatgNm = dto.getPostCatgNm();
+        }
+        if( dto.isPostCatgUseYn() != this.isPostCatgUseYn() ){
+            this.postCatgUseYn = dto.isPostCatgUseYn();
+        }
+
+        if( !dto.getRegnNm().equals("") && !this.regnNm.equals(dto.getRegnNm()) ){
+            this.regnNm = dto.getRegnNm();
+        }
+        this.updatedAt = LocalDateTime.now();
 
     }
 

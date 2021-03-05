@@ -1,6 +1,7 @@
 package com.unico.community.online.post.entity;
 
 
+import com.unico.community.online.post.dto.PostDTO;
 import com.unico.community.online.postCatg.dto.PostCatgDTO;
 import com.unico.community.online.postCatg.entity.PostCatgEntity;
 import lombok.*;
@@ -20,11 +21,12 @@ import java.time.LocalDateTime;
 public class PostEntity {
 
     @EmbeddedId
+    @Column(unique = true, nullable = false)
     private PostVO postVO;
 
     private long userNum;
 
-    @ManyToOne(targetEntity = PostCatgEntity.class)
+    @ManyToOne(fetch=FetchType.LAZY, optional = true)
     @JoinColumn(name="postCatgUuid", referencedColumnName = "postCatgUuid", insertable = false, updatable = false)
     private PostCatgEntity postCatgEntity;
     public void setPostCatgEntity(PostCatgEntity postCatgEntity){
@@ -47,6 +49,24 @@ public class PostEntity {
     @UpdateTimestamp
     private LocalDateTime updatedAt;
 
+
+    public void update(PostDTO dto){
+
+        if(!dto.getPostContents().equals("") && !this.postContents.equals(dto.getPostContents())){
+            this.postContents = dto.getPostContents();
+        }
+
+        if(!dto.getPostTitle().equals("") && !this.postTitle.equals(dto.getPostTitle())){
+            this.postTitle = dto.getPostTitle();
+        }
+
+        if(this.isPostUseYn() != dto.isPostUseYn()){
+            this.postUseYn = dto.isPostUseYn();
+        }
+
+        this.updatedAt = updatedAt.now();
+
+    }
 
 }
 

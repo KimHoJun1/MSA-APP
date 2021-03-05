@@ -2,6 +2,7 @@ package com.unico.community.online.post.service;
 
 
 import com.unico.community.online.post.dto.PostDTO;
+import com.unico.community.online.post.dto.PostVODTO;
 import com.unico.community.online.post.entity.PostEntity;
 import com.unico.community.online.post.entity.PostVO;
 import com.unico.community.online.post.kafka.PostKafkaService;
@@ -10,6 +11,7 @@ import com.unico.community.online.post.repository.PostRepository;
 import com.unico.community.online.postCatg.entity.PostCatgEntity;
 import com.unico.community.online.postCatg.repository.PostCatgRepository;
 import lombok.AllArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Service;
@@ -20,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Log
 @Service
 @Transactional
 @AllArgsConstructor
@@ -40,36 +43,42 @@ public class PostService {
                 .map(mapper::toPostDTO)
                 .collect(Collectors.toList());
     }
-    public PostDTO findOneById(long postNum){
+    public PostDTO findOneById(PostVODTO voDTO){
+        PostVO vo = PostVO.builder().postNum(voDTO.getPostNum()).postCatgUuid(voDTO.getPostCatgUuid()).build();
         return repository
-                .findById(postNum)
+                .findById(vo)
                 .map(mapper::toPostDTO)
                 .orElse(null);
     }
     public PostDTO insertPost(PostDTO dto){
-        PostCatgEntity cEntity = cRepository.findById(dto.getPostVO().getPostCatgUuid()).orElse(null);
+        long postMaxNum = repository.getMaxPostNum();
+        PostVO vo = PostVO.builder().postNum(postMaxNum).postCatgUuid(dto.getPostVO().getPostCatgUuid()).build();
+        log.info("vo : " + vo);
 
         PostEntity entity =
                 PostEntity.builder()
-                .postVO(PostVO.builder().postNum(dto.getPostVO().getPostNum()).postCatgUuid(dto.getPostVO().getPostCatgUuid()).build())
+                .postVO(vo)
                 .postContents(dto.getPostContents())
                 .postTitle(dto.getPostTitle())
                 .postUseYn(true)
                 .userNum(dto.getUserNum())
                 .build();
-        entity.setPostCatgEntity(cEntity);
 
-        repository.saveAndFlush(entity);
-
+        repository.save(entity);
         return mapper.toPostDTO(entity);
 
     }
 
     public PostDTO updatePost(PostDTO dto){
-        return null;
+        PostVO vo = PostVO.builder().postNum(dto.getPostVO().getPostNum()).postCatgUuid(dto.getPostVO().getPostCatgUuid()).build();
+        PostEntity entity = repository.findById(vo).orElse(null);
+        entity.update(dto);
+        return mapper.toPostDTO(entity);
     }
 
     public boolean deletePost(PostDTO dto){
-        return true;
+        PostVO vo = PostVO.builder().postNum(dto.getPostVO().getPostNum()).postCatgUuid(dto.getPostVO().getPostCatgUuid()).build();
+        repository.deleteById(vo);
+        return !repository.existsById(vo);
     }
 }
