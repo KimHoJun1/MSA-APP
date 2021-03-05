@@ -1,9 +1,7 @@
-package com.unico.community.online.kafka;
+package com.unico.community.online.post.kafka;
 
-import com.querydsl.jpa.impl.JPAUpdateClause;
-import com.unico.community.online.dto.CommunityDTO;
-import com.unico.community.online.entity.QCommunityEntity;
-import com.unico.community.online.repository.CommunityRepository;
+import com.unico.community.online.post.dto.PostDTO;
+import com.unico.community.online.post.repository.PostRepository;
 import lombok.extern.java.Log;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,21 +10,20 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.io.IOException;
 
 
 @Service
 @Transactional
 @Log
-public class KafkaService {
-    private static final String TOPIC = "community-svc";
+public class PostKafkaService {
+ /*   private static final String TOPIC = "community-svc";
     @Autowired
-    private KafkaTemplate<String, CommunityDTO> kafkaTemplate;
+    private KafkaTemplate<String, PostDTO> kafkaTemplate;
     @Autowired
-    CommunityRepository repository;
+    PostRepository repository;
 
-    public void sendMessage(CommunityDTO dto) {
+    public void sendMessage(PostDTO dto) {
         this.kafkaTemplate.send(TOPIC, dto);
     }
 
@@ -34,11 +31,8 @@ public class KafkaService {
     public void consumeUserSvc(String msg) throws IOException {
         log.info("[kafka consume] topic : user-svc  groupId : community-svc JSON : " + msg.toString());
         JSONObject json = new JSONObject(msg);
-        CommunityDTO dto = new CommunityDTO();
+        PostDTO dto = new PostDTO();
 
-        dto.setUserId(""+json.get("userId"));
-        dto.setUserNm(""+json.get("userNm"));
-
-        repository.updateUserNmByUserId(dto);
-    }
+        //repository.updateUserNmByUserId(dto);
+    }*/
 }

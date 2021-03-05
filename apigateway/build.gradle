@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.3.9.BUILD-SNAPSHOT'
+	id 'org.springframework.boot' version '2.2.9.BUILD-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 }
@@ -15,7 +15,7 @@ repositories {
 }
 
 ext {
-	set('springCloudVersion', "Hoxton.BUILD-SNAPSHOT")
+	set('springCloudVersion', "Hoxton.RELEASE")
 }
 
 dependencies {
