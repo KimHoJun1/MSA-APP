@@ -2,6 +2,7 @@ package com.unico.community.online.post.controller;
 
 
 import com.unico.community.online.post.dto.PostDTO;
+import com.unico.community.online.post.dto.PostSearchDTO;
 import com.unico.community.online.post.dto.PostVODTO;
 import com.unico.community.online.post.service.PostService;
 import lombok.AllArgsConstructor;
@@ -30,6 +31,23 @@ public class PostController {
         }
         return result;
     }
+
+
+    @PostMapping("/search/paging/v1")
+    public ResponseEntity<List<PostDTO>> findAllBySearchCondAndPagind(@RequestBody PostSearchDTO dto){
+        ResponseEntity<List<PostDTO>> result = null;
+
+        try{
+            result = ResponseEntity.ok(service.findAllBySearchCondAndPaging(dto));
+        }catch(Exception e){
+
+        }
+        return result;
+
+    }
+
+
+
     @GetMapping("/v1/{postNum}")
     public ResponseEntity<PostDTO> findOneById(@PathVariable PostVODTO voDTO){
         ResponseEntity<PostDTO> result = null;
